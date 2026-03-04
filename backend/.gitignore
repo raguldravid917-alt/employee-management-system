@@ -1,0 +1,13 @@
+# Dependecies (Ithu romba weight-ana folder, ithu GitHub-ku poga koodathu)
+node_modules/
+
+# Environment variables (Database passwords, API keys)
+.env
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS related files
+.DS_Store
