@@ -10,16 +10,13 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
-// Uploaded images-ஐ Frontend-ல் பார்க்க இந்த line முக்கியம்
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-// Create uploads folder if not exists
 const uploadDir = path.join(__dirname, 'uploads');
 if (!fs.existsSync(uploadDir)) {
     fs.mkdirSync(uploadDir);
 }
 
-// Multer Storage Configuration
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, 'uploads/');
@@ -30,7 +27,6 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 
-// 1. GET ALL EMPLOYEES
 app.get('/api/employees', async (req, res) => {
     try {
         const [rows] = await db.query('SELECT * FROM employees ORDER BY created_at DESC');
@@ -40,7 +36,6 @@ app.get('/api/employees', async (req, res) => {
     }
 });
 
-// 2. GET SINGLE EMPLOYEE
 app.get('/api/employees/:id', async (req, res) => {
     try {
         const [rows] = await db.query('SELECT * FROM employees WHERE id = ?', [req.params.id]);
@@ -51,7 +46,6 @@ app.get('/api/employees/:id', async (req, res) => {
     }
 });
 
-// 3. CREATE NEW EMPLOYEE (With Image)
 app.post('/api/employees', upload.single('image'), async (req, res) => {
     const { name, empId, department, designation, project, type, status } = req.body;
     const imagePath = req.file ? `/uploads/${req.file.filename}` : null;
@@ -64,7 +58,6 @@ app.post('/api/employees', upload.single('image'), async (req, res) => {
     }
 });
 
-// 4. UPDATE EMPLOYEE (With Image)
 app.put('/api/employees/:id', upload.single('image'), async (req, res) => {
     const { name, empId, department, designation, project, type, status } = req.body;
     const imagePath = req.file ? `/uploads/${req.file.filename}` : null;
@@ -74,7 +67,6 @@ app.put('/api/employees/:id', upload.single('image'), async (req, res) => {
             sql = 'UPDATE employees SET name=?, empId=?, department=?, designation=?, project=?, type=?, status=?, image=? WHERE id=?';
             params =[name, empId, department, designation, project, type, status, imagePath, req.params.id];
         } else {
-            // If no new image is uploaded, update only text fields
             sql = 'UPDATE employees SET name=?, empId=?, department=?, designation=?, project=?, type=?, status=? WHERE id=?';
             params =[name, empId, department, designation, project, type, status, req.params.id];
         }
@@ -85,7 +77,6 @@ app.put('/api/employees/:id', upload.single('image'), async (req, res) => {
     }
 });
 
-// 5. DELETE EMPLOYEE
 app.delete('/api/employees/:id', async (req, res) => {
     try {
         await db.query('DELETE FROM employees WHERE id = ?',[req.params.id]);

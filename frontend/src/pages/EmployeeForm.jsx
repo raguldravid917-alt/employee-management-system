@@ -130,7 +130,6 @@ export default function EmployeeForm() {
             <input type="text" name="empId" value={formData.empId} onChange={handleChange} disabled={isViewMode} placeholder="Enter employee ID" required className={inputClass} />
           </div>
           
-          {/* 5 Options Added for Department */}
           <div>
             <label className="text-sm font-bold text-gray-700">Department*</label>
             <select name="department" value={formData.department} onChange={handleChange} disabled={isViewMode} required className={inputClass}>
@@ -142,8 +141,7 @@ export default function EmployeeForm() {
               <option value="Marketing & Sales">Marketing & Sales</option>
             </select>
           </div>
-          
-          {/* 5 Options Added for Designation */}
+        
           <div>
             <label className="text-sm font-bold text-gray-700">Designation*</label>
             <select name="designation" value={formData.designation} onChange={handleChange} disabled={isViewMode} required className={inputClass}>

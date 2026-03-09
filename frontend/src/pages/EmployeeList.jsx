@@ -33,7 +33,6 @@ export default function EmployeeList() {
 
   return (
     <div className="bg-white rounded-lg border border-gray-200 shadow-sm min-h-[80vh] flex flex-col">
-      {/* Header Section */}
       <div className="flex justify-between items-center p-6 border-b border-gray-100">
         <h2 className="text-xl font-bold text-gray-800">Employee</h2>
         <div className="flex space-x-4 items-center">
@@ -51,7 +50,6 @@ export default function EmployeeList() {
         </div>
       </div>
 
-      {/* Table Section - Scrollbar Removed & Cleanly Fitted */}
       <div className="p-0">
         <table className="w-full text-left border-collapse table-auto">
           <thead>
@@ -102,7 +100,6 @@ export default function EmployeeList() {
         </table>
       </div>
 
-      {/* Delete Modal */}
       {showDelete && (
         <div className="fixed inset-0 bg-black/20 flex items-center justify-center z-50">
           <div className="bg-white rounded-lg shadow-xl w-80 text-center overflow-hidden">
